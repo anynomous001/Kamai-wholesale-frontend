@@ -1,26 +1,216 @@
 @import "tailwindcss";
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
+@theme {
+  /* Colors */
+  --color-surface: #fff8f6;
+  --color-surface-dim: #efd4cb;
+  --color-surface-bright: #fff8f6;
+  --color-surface-container-lowest: #ffffff;
+  --color-surface-container-low: #fff1ec;
+  --color-surface-container: #ffe9e2;
+  --color-surface-container-high: #fee2d9;
+  --color-surface-container-highest: #f8ddd4;
+  --color-on-surface: #261813;
+  --color-on-surface-variant: #5a4138;
+  --color-inverse-surface: #3d2d27;
+  --color-inverse-on-surface: #ffede7;
+  --color-outline: #8e7166;
+  --color-outline-variant: #e2bfb2;
+  --color-surface-tint: #a73a00;
+  --color-primary: #a33900;
+  --color-on-primary: #ffffff;
+  --color-primary-container: #cc4900;
+  --color-on-primary-container: #fffbff;
+  --color-inverse-primary: #ffb599;
+  --color-secondary: #725950;
+  --color-on-secondary: #ffffff;
+  --color-secondary-container: #fddbd0;
+  --color-on-secondary-container: #785f56;
+  --color-tertiary: #005da8;
+  --color-on-tertiary: #ffffff;
+  --color-tertiary-container: #0076d2;
+  --color-on-tertiary-container: #fdfcff;
+  --color-error: #ba1a1a;
+  --color-on-error: #ffffff;
+  --color-error-container: #ffdad6;
+  --color-on-error-container: #93000a;
+  --color-primary-fixed: #ffdbce;
+  --color-primary-fixed-dim: #ffb599;
+  --color-on-primary-fixed: #370e00;
+  --color-on-primary-fixed-variant: #7f2b00;
+  --color-secondary-fixed: #fddbd0;
+  --color-secondary-fixed-dim: #e0c0b4;
+  --color-on-secondary-fixed: #291710;
+  --color-on-secondary-fixed-variant: #584239;
+  --color-tertiary-fixed: #d4e3ff;
+  --color-tertiary-fixed-dim: #a4c9ff;
+  --color-on-tertiary-fixed: #001c39;
+  --color-on-tertiary-fixed-variant: #004883;
+  --color-background: #fff8f6;
+  --color-on-background: #261813;
+  --color-surface-variant: #f8ddd4;
+  --color-success: #166534; /* Inferred Green */
+  --color-warning: #854d0e; /* Inferred Yellow */
+
+  /* Fonts */
+  --font-serif: var(--font-source-serif-4);
+  --font-sans: var(--font-plus-jakarta-sans);
+
+  /* Spacing */
+  --spacing-base: 4px;
+  --spacing-xs: 4px;
+  --spacing-sm: 8px;
+  --spacing-md: 16px;
+  --spacing-lg: 24px;
+  --spacing-xl: 32px;
+  --spacing-container-margin: 16px;
+  --spacing-gutter: 12px;
+
+  /* Radius */
+  --radius-sm: 0.25rem;
+  --radius: 0.5rem;
+  --radius-md: 0.75rem;
+  --radius-lg: 1rem;
+  --radius-xl: 1.5rem;
+  --radius-full: 9999px;
+
+  /* Box Shadows / Elevation */
+  --shadow-level-1: none;
+  --shadow-level-2: 0px 4px 20px rgba(45, 27, 20, 0.08);
 }
 
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
-}
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+@layer base {
+  body {
+    background-color: var(--color-background);
+    color: var(--color-on-background);
+    font-family: var(--font-sans);
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
   }
 }
 
-body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+@layer utilities {
+  .text-headline-xl {
+    font-family: var(--font-serif);
+    font-size: 32px;
+    font-weight: 700;
+    line-height: 40px;
+    letter-spacing: -0.02em;
+  }
+  .text-headline-lg {
+    font-family: var(--font-serif);
+    font-size: 24px;
+    font-weight: 600;
+    line-height: 32px;
+  }
+  .text-headline-lg-mobile {
+    font-family: var(--font-serif);
+    font-size: 22px;
+    font-weight: 600;
+    line-height: 28px;
+  }
+  .text-body-lg {
+    font-family: var(--font-sans);
+    font-size: 18px;
+    font-weight: 400;
+    line-height: 28px;
+  }
+  .text-body-md {
+    font-family: var(--font-sans);
+    font-size: 16px;
+    font-weight: 400;
+    line-height: 24px;
+  }
+  .text-body-sm {
+    font-family: var(--font-sans);
+    font-size: 14px;
+    font-weight: 400;
+    line-height: 20px;
+  }
+  .text-label-md {
+    font-family: var(--font-sans);
+    font-size: 14px;
+    font-weight: 600;
+    line-height: 16px;
+    letter-spacing: 0.01em;
+  }
+  .text-label-sm {
+    font-family: var(--font-sans);
+    font-size: 12px;
+    font-weight: 600;
+    line-height: 14px;
+    letter-spacing: 0.02em;
+  }
+
+  .hide-number-spinners::-webkit-inner-spin-button,
+  .hide-number-spinners::-webkit-outer-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+  }
+  .hide-number-spinners {
+    -moz-appearance: textfield;
+  }
+
+  /* Custom styling for ranges */
+  .kamai-range {
+    @apply h-2 bg-outline-variant/30 rounded-lg appearance-none cursor-pointer;
+  }
+  .kamai-range::-webkit-slider-thumb {
+    @apply appearance-none w-6 h-6 bg-primary rounded-full shadow-md cursor-pointer transition-transform hover:scale-110 active:scale-95;
+  }
+  
+  /* Custom Checkbox */
+  .kamai-checkbox { 
+    appearance: none; 
+    background-color: #fff; 
+    margin: 0; 
+    font: inherit; 
+    color: currentColor; 
+    width: 1.5em; 
+    height: 1.5em; 
+    border: 1.5px solid #8e7166; 
+    border-radius: 0.25rem; 
+    display: grid; 
+    place-content: center; 
+    cursor: pointer; 
+    transition: all 0.2s ease-in-out; 
+  }
+  .kamai-checkbox::before { 
+    content: ""; 
+    width: 0.85em; 
+    height: 0.85em; 
+    clip-path: polygon(14% 44%, 0 65%, 50% 100%, 100% 16%, 80% 0%, 43% 62%); 
+    transform: scale(0); 
+    transform-origin: bottom left; 
+    transition: 120ms transform ease-in-out; 
+    box-shadow: inset 1em 1em var(--form-control-color, white); 
+    background-color: white; 
+  }
+  .kamai-checkbox:checked { 
+    background-color: #a33900; 
+    border-color: #a33900; 
+  }
+  .kamai-checkbox:checked::before { 
+    transform: scale(1); 
+  }
+
+  /* Hide scrollbar for horizontal scroll areas */
+  .no-scrollbar::-webkit-scrollbar {
+    display: none;
+  }
+  .no-scrollbar {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
+
+  .kamai-range::-webkit-slider-runnable-track {
+    width: 100%;
+    height: 4px;
+    cursor: pointer;
+    background: var(--color-outline-variant);
+    border-radius: 2px;
+  }
+  .kamai-range:focus {
+    outline: none;
+  }
 }
