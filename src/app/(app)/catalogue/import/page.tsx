@@ -14,7 +14,7 @@ import { ImportRowCard } from '@/components/ui/ImportRowCard';
 const POLL_INTERVAL_MS = 2500;
 const POLL_TIMEOUT_MS = 60_000;
 
-export default function ImportReview() {
+export default function CatalogueImport() {
   const router = useRouter();
   const fileInputRef = useRef<HTMLInputElement | null>(null);
 
@@ -129,12 +129,12 @@ export default function ImportReview() {
   const isPublished = batch?.status === 'PUBLISHED';
 
   return (
-    <main className="w-full h-full flex flex-col bg-background relative">
+    <main className="w-full flex-1 min-h-0 flex flex-col bg-background relative">
       <header className="sticky top-0 left-0 w-full z-50 flex justify-between items-center px-container-margin h-14 bg-surface border-b border-border shrink-0">
-        <button className="text-text-secondary hover:bg-background p-2 rounded-full transition-colors flex items-center justify-center -ml-2" onClick={() => router.back()}>
+        <button className="text-text-secondary hover:bg-background p-2 rounded-full transition-colors flex items-center justify-center -ml-2" onClick={() => router.push('/catalogue')}>
           <span className="material-symbols-outlined text-2xl">arrow_back</span>
         </button>
-        <h1 className="font-headline-lg-mobile text-headline-lg-mobile font-semibold text-accent truncate text-center flex-1 mx-4">Review your products</h1>
+        <h1 className="font-headline-lg-mobile text-headline-lg-mobile font-semibold text-accent truncate text-center flex-1 mx-4">Import your products</h1>
         <div className="w-10"></div>
       </header>
 
@@ -238,8 +238,8 @@ export default function ImportReview() {
       {batch && (batch.status === 'REVIEW' || batch.status === 'PUBLISHED') && (
         <div className="absolute bottom-0 left-0 right-0 p-container-margin bg-surface-glass backdrop-blur-md shadow-[0px_-4px_20px_rgba(45,27,20,0.08)] z-50 border-t border-border shrink-0">
           {publishResult || isPublished ? (
-            <button onClick={() => router.push('/onboarding/step-3')} className="w-full h-[56px] rounded bg-accent text-white font-label-md text-label-md font-bold shadow-md hover:bg-accent-hover transition-colors flex items-center justify-center gap-2">
-              Continue
+            <button onClick={() => router.push('/catalogue')} className="w-full h-[56px] rounded bg-accent text-white font-label-md text-label-md font-bold shadow-md hover:bg-accent-hover transition-colors flex items-center justify-center gap-2">
+              Back to Catalogue
             </button>
           ) : (
             <button

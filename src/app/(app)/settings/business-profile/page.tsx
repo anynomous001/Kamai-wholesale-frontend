@@ -5,7 +5,7 @@ import { useRouter } from 'next/navigation';
 import { getProfile, updateProfile } from '@/lib/api/profile';
 import { ApiError, fieldErrorsFrom } from '@/lib/api/client';
 
-export default function Step1() {
+export default function BusinessProfileSettings() {
   const router = useRouter();
 
   const [isLoading, setIsLoading] = useState(true);
@@ -59,7 +59,7 @@ export default function Step1() {
         alwaysAvailable,
         ...(alwaysAvailable ? {} : { businessHoursOpen, businessHoursClose }),
       });
-      router.push('/onboarding/step-2');
+      router.push('/settings');
     } catch (err) {
       if (err instanceof ApiError) {
         setFieldErrors(fieldErrorsFrom(err));
@@ -77,13 +77,13 @@ export default function Step1() {
   };
 
   return (
-    <main className="w-full h-full flex flex-col bg-background relative">
+    <main className="w-full flex-1 min-h-0 flex flex-col bg-background relative">
       {/* Top Navigation */}
       <header className="sticky top-0 left-0 w-full z-50 flex justify-between items-center px-container-margin h-14 bg-surface-glass backdrop-blur-md border-b border-border shrink-0">
-        <button className="text-text-secondary hover:bg-surface rounded-full p-2 transition-transform duration-200 active:scale-95 flex items-center justify-center -ml-2" onClick={() => router.back()}>
+        <button className="text-text-secondary hover:bg-surface rounded-full p-2 transition-transform duration-200 active:scale-95 flex items-center justify-center -ml-2" onClick={() => router.push('/settings')}>
           <span className="material-symbols-outlined">arrow_back</span>
         </button>
-        <h1 className="text-headline-lg-mobile font-bold text-text-primary absolute left-1/2 -translate-x-1/2">Step 1 of 4</h1>
+        <h1 className="text-headline-lg-mobile font-bold text-text-primary absolute left-1/2 -translate-x-1/2">Business Profile</h1>
         <div className="w-10"></div>
       </header>
 
@@ -239,7 +239,7 @@ export default function Step1() {
       {/* Bottom Anchored Primary Action */}
       <div className="absolute bottom-0 left-0 w-full p-container-margin bg-surface-glass backdrop-blur-md border-t border-border shadow-[0px_-4px_20px_rgba(45,27,20,0.08)] z-10 shrink-0">
         <Button variant="primary" className="w-full" onClick={handleSave} disabled={isLoading || isSaving}>
-          {isSaving ? 'Saving…' : 'Continue to Step 2'}
+          {isSaving ? 'Saving…' : 'Save Changes'}
         </Button>
       </div>
     </main>

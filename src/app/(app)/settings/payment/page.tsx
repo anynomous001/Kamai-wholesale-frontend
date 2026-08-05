@@ -6,7 +6,7 @@ import { ApiError, fieldErrorsFrom } from '@/lib/api/client';
 
 const PRESETS = [0, 20, 50, 100];
 
-export default function Step4() {
+export default function PaymentSettings() {
   const router = useRouter();
   const [selectedPreset, setSelectedPreset] = useState<number | null>(20);
   const [customPercentage, setCustomPercentage] = useState<string>('');
@@ -50,9 +50,8 @@ export default function Step4() {
     setFieldError(null);
     setIsSaving(true);
     try {
-      // Sending advancePercentage at all — including 0 — permanently marks paymentPolicyConfigured true server-side.
       await updateProfile({ advancePercentage: Math.round(effectivePercentage) });
-      router.push('/onboarding/go-live');
+      router.push('/settings');
     } catch (err) {
       if (err instanceof ApiError) {
         const errors = fieldErrorsFrom(err);
@@ -67,18 +66,13 @@ export default function Step4() {
   };
 
   return (
-    <main className="w-full h-full flex flex-col bg-surface relative overflow-hidden">
+    <main className="w-full flex-1 min-h-0 flex flex-col bg-surface relative overflow-hidden">
       {/* Header */}
       <header className="flex items-center justify-between px-container-margin h-14 border-b border-border sticky top-0 bg-surface z-10 shrink-0">
-        <button className="w-10 h-10 flex items-center justify-center text-text-secondary hover:bg-background rounded-full transition-colors -ml-2" onClick={() => router.back()}>
+        <button className="w-10 h-10 flex items-center justify-center text-text-secondary hover:bg-background rounded-full transition-colors -ml-2" onClick={() => router.push('/settings')}>
           <span className="material-symbols-outlined">arrow_back</span>
         </button>
-        <div className="flex space-x-1">
-          <div className="w-2 h-2 rounded-full bg-accent"></div>
-          <div className="w-2 h-2 rounded-full bg-accent"></div>
-          <div className="w-2 h-2 rounded-full bg-accent"></div>
-          <div className="w-2 h-2 rounded-full bg-accent"></div>
-        </div>
+        <h1 className="font-headline-lg-mobile text-headline-lg-mobile font-bold text-text-primary">Payment Policy</h1>
         <div className="w-10"></div>
       </header>
 
@@ -87,8 +81,7 @@ export default function Step4() {
         <div className="space-y-xl">
           {/* Title & Context */}
           <div className="space-y-sm">
-            <span className="font-label-sm text-label-sm text-accent uppercase tracking-wider">Step 4 of 4</span>
-            <h1 className="font-headline-lg-mobile text-headline-lg-mobile text-text-primary">Set your advance payment policy.</h1>
+            <h2 className="font-headline-lg-mobile text-headline-lg-mobile text-text-primary">Set your advance payment policy.</h2>
             <p className="font-body-md text-body-md text-text-secondary">Determine how much of the total order value buyers must pay upfront before you begin processing their wholesale request.</p>
           </div>
 
@@ -156,7 +149,7 @@ export default function Step4() {
       {/* Sticky Bottom Action */}
       <div className="absolute bottom-0 left-0 w-full p-container-margin bg-surface border-t border-border shadow-[0px_-4px_20px_rgba(45,27,20,0.04)] z-20 shrink-0">
         <button onClick={handleSave} disabled={isLoading || isSaving} className="w-full h-[56px] flex items-center justify-center bg-accent hover:bg-accent-hover text-white font-label-md text-label-md rounded transition-colors shadow-[0px_4px_20px_rgba(45,27,20,0.08)] disabled:opacity-60">
-          {isSaving ? 'Saving…' : 'Save & Continue'}
+          {isSaving ? 'Saving…' : 'Save Changes'}
         </button>
       </div>
     </main>

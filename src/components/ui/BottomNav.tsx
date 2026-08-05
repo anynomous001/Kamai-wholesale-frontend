@@ -30,14 +30,14 @@ export function BottomNav() {
   ];
 
   return (
-    <nav className="absolute bottom-0 left-0 w-full z-50 flex justify-around items-center px-2 pb-safe h-20 bg-surface border-t border-outline-variant/30 shadow-sm">
+    <nav className="absolute bottom-0 left-0 w-full z-50 flex justify-around items-center px-2 pb-safe h-20 bg-surface border-t border-border shadow-sm">
       {navItems.map((item) => {
         const isActive = pathname === item.href || pathname.startsWith(item.href + '/');
         return (
-          <Link 
+          <Link
             key={item.href}
             href={item.href}
-            className={`flex flex-col items-center justify-center px-4 py-1 rounded-xl transition-all duration-150 active:scale-95 ${isActive ? 'bg-secondary-container dark:bg-secondary text-on-secondary-container dark:text-on-secondary' : 'text-on-surface-variant dark:text-on-surface-variant hover:bg-surface-container-highest'}`}
+            className={`flex flex-col items-center justify-center px-4 py-1 rounded-lg transition-all duration-150 active:scale-95 ${isActive ? 'bg-accent/10 text-accent' : 'text-text-secondary hover:bg-background'}`}
           >
             <span className="material-symbols-outlined" style={{ fontVariationSettings: isActive ? "'FILL' 1" : "'FILL' 0" }}>
               {item.icon}

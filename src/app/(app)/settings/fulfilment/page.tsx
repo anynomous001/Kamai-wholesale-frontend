@@ -4,7 +4,7 @@ import { useRouter } from 'next/navigation';
 import { getProfile, updateProfile } from '@/lib/api/profile';
 import { ApiError, fieldErrorsFrom } from '@/lib/api/client';
 
-export default function Step3() {
+export default function FulfilmentSettings() {
   const router = useRouter();
 
   const [isLoading, setIsLoading] = useState(true);
@@ -61,7 +61,7 @@ export default function Step3() {
           : {}),
         ...(pickupEnabled && pickupLocation !== '' ? { pickupLocation } : {}),
       });
-      router.push('/onboarding/step-4');
+      router.push('/settings');
     } catch (err) {
       if (err instanceof ApiError) {
         setFieldErrors(fieldErrorsFrom(err));
@@ -75,26 +75,16 @@ export default function Step3() {
   };
 
   return (
-    <main className="w-full h-full flex flex-col bg-background relative">
+    <main className="w-full flex-1 min-h-0 flex flex-col bg-background relative">
       <header className="sticky top-0 left-0 w-full z-50 flex justify-between items-center px-container-margin h-14 bg-surface-glass backdrop-blur-md border-b border-border shrink-0">
-        <button className="flex items-center justify-center p-2 text-accent hover:bg-background rounded-full transition-colors -ml-2" onClick={() => router.back()}>
+        <button className="flex items-center justify-center p-2 text-accent hover:bg-background rounded-full transition-colors -ml-2" onClick={() => router.push('/settings')}>
           <span className="material-symbols-outlined">arrow_back</span>
         </button>
-        <h1 className="font-headline-lg-mobile text-headline-lg-mobile font-bold text-accent">Fulfilment Rules</h1>
+        <h1 className="font-headline-lg-mobile text-headline-lg-mobile font-bold text-accent">Fulfilment Settings</h1>
         <div className="w-10"></div>
       </header>
 
       <div className="flex-1 overflow-y-auto kamai-scrollbar px-container-margin pt-6 pb-24 flex flex-col gap-lg">
-        <div className="flex flex-col gap-2">
-          <div className="flex justify-between items-center text-label-sm font-label-sm text-text-secondary">
-            <span>Step 3 of 4</span>
-            <span>75%</span>
-          </div>
-          <div className="w-full bg-surface rounded-full h-2">
-            <div className="bg-accent h-2 rounded-full" style={{ width: '75%' }}></div>
-          </div>
-        </div>
-
         <section className="flex flex-col gap-4">
           <h2 className="font-headline-xl text-headline-xl text-text-primary">How will bakers get their order?</h2>
           <p className="font-body-md text-body-md text-text-secondary">Configure your delivery and pickup options to let customers know how they can receive their goods. At least one must be fully configured.</p>
@@ -191,8 +181,7 @@ export default function Step3() {
       {/* Bottom Action Bar (Mobile Sticky) */}
       <div className="absolute bottom-0 left-0 w-full z-40 bg-surface-glass backdrop-blur-md border-t border-border p-container-margin shrink-0">
         <button onClick={handleSave} disabled={isLoading || isSaving} className="w-full h-14 bg-accent text-white font-label-md text-label-md rounded shadow-[0px_4px_20px_rgba(45,27,20,0.08)] hover:bg-accent-hover transition-colors flex items-center justify-center gap-2 disabled:opacity-60">
-          {isSaving ? 'Saving…' : 'Save & Continue'}
-          {!isSaving && <span className="material-symbols-outlined text-[18px]">arrow_forward</span>}
+          {isSaving ? 'Saving…' : 'Save Changes'}
         </button>
       </div>
     </main>
